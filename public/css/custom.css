@@ -1,0 +1,33 @@
+body {
+    background-color: #36465D;
+}
+
+h1, h2, h3, h4, h5, h6, h1, h2, h3, h4, h5, h6 {
+    color: #C0C5CC;
+}
+
+p {
+    color: #C0C5CC;
+}
+
+.panel-body {
+    padding: 0;
+}
+
+.panel-footer {
+    background-color: #ffffff;
+}
+
+.thumbnail {
+    border:0;
+    box-shadow:0;
+    border-radius:0;
+    padding: 0;
+    margin: 0;
+
+}
+
+.thumbnail > img {
+    margin: 0;
+    width: 100%;
+}
