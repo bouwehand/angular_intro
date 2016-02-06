@@ -7,10 +7,19 @@
  */
 class PhpTumblr_Model_Post
 {
+    /**
+     * @var
+     */
     protected $_post;
 
+    /**
+     * @var
+     */
     protected $_stats;
 
+    /**
+     * @var
+     */
     protected $tumblr;
 
     /**
@@ -32,10 +41,53 @@ class PhpTumblr_Model_Post
             echo "Message: " . $e->getMessage() . "\n";
             die();
         }
-        $dump =  $tumblr->dumpArray();
+        $dump = $tumblr->dumpArray();
         $this->_post = $dump['posts'];
 
         return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws Exception
+     */
+    public function formatPosts()
+    {
+        $return = array();
+        if (empty($this->_post)) {
+            throw new Exception('post not set!');
+        }
+        foreach ($this->_post as $post) {
+            if (isset($post['content']['photos'])) {
+                $photos = $post['content']['photos'];
+                $return = $return +  $this->_formatFotos($photos, $post);
+            } else {
+                $return[] = $post;
+            }
+        }
+
+        $this->_post = $return;
+        return $this;
+    }
+
+    /**
+     * @param $photos
+     * @param $post
+     * @return array
+     */
+    public function _formatFotos($photos, $post)
+    {
+        $return = array();
+        foreach($photos as $photo) {
+          $return[] = array(
+            'id'      => $post['id'],
+            'url'     => $post['url'],
+            'type'    => $post['type'],
+            'caption' => $post['caption'],
+            'content' => $photo
+          );
+        }
+        return $return;
     }
 
     public function toJson() {

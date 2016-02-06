@@ -16,5 +16,6 @@ $number = 5;
 $posts  = new PhpTumblr_Model_Post();
 $return = $posts
     ->getPosts($start, $number)
+    ->formatPosts()
     ->toJson();
 file_put_contents('../../public/data.json', $return);
